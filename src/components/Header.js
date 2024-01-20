@@ -1,5 +1,7 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
+
+import { Button} from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Navbar, Nav, Container, NavDropdown, NavLink } from 'react-bootstrap'
@@ -20,18 +22,18 @@ const Header = () => {
     <header>
       <Navbar bg='dark' variant='dark' expand='lg' collapseOnSelect>
         <Container>
-          <LinkContainer to='/'>
-            <Navbar.Brand>MusicApp</Navbar.Brand>
-          </LinkContainer>
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
             {userInfo&&<Route render={({ history }) => <SearchBox history={history} />} />}
             <Nav className='ml-auto'>
-            <LinkContainer to='/'>
-              <NavLink>
-                <i className='fas fa-plus'></i>
-              </NavLink>
-            </LinkContainer>
+
+            {userInfo&&userInfo.isAdmin&&(
+              <LinkContainer to={`/createSession`}>
+              <Nav.Link>
+                   Create Session<i className='fas fa-plus'></i>  
+               </Nav.Link>    
+             </LinkContainer>
+            )}
               
               {userInfo ? (
                 <NavDropdown title={userInfo.name} id='username'>
