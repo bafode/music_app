@@ -87,11 +87,6 @@ const SessionListScreen = ({ history, match }) => {
                 <td>{session.moduleName}</td>
                 <td>{session.expirationDate}</td>
                 <td>
-                  <LinkContainer to={`/admin/product/${session._id}/edit`}>
-                    <Button variant='light' className='btn-sm'>
-                      <i className='fas fa-edit'></i>
-                    </Button>
-                  </LinkContainer>
                   <Button
                     variant='danger'
                     className='btn-sm'

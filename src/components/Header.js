@@ -1,10 +1,9 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
 
-import { Button} from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { LinkContainer } from 'react-router-bootstrap'
-import { Navbar, Nav, Container, NavDropdown, NavLink } from 'react-bootstrap'
+import { Navbar, Nav, Container, NavDropdown} from 'react-bootstrap'
 import SearchBox from './SearchBox'
 import { logout } from '../actions/userActions'
 
@@ -22,6 +21,9 @@ const Header = () => {
     <header>
       <Navbar bg='dark' variant='dark' expand='lg' collapseOnSelect>
         <Container>
+          <LinkContainer to='/'>
+            <Navbar.Brand>MusicApp</Navbar.Brand>
+          </LinkContainer>
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
             {userInfo&&<Route render={({ history }) => <SearchBox history={history} />} />}
