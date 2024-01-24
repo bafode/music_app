@@ -25,16 +25,7 @@ const Header = () => {
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
             {userInfo&&<Route render={({ history }) => <SearchBox history={history} />} />}
-            <Nav className='ml-auto'>
-
-            {userInfo&&userInfo.isAdmin&&(
-              <LinkContainer to={`/createSession`}>
-              <Nav.Link>
-                   Create Session<i className='fas fa-plus'></i>  
-               </Nav.Link>    
-             </LinkContainer>
-            )}
-              
+            <Nav className='ml-auto'>              
               {userInfo ? (
                 <NavDropdown title={userInfo.name} id='username'>
                   <LinkContainer to='/profile'>
@@ -56,10 +47,10 @@ const Header = () => {
                   <LinkContainer to='/admin/userlist'>
                     <NavDropdown.Item>Users</NavDropdown.Item>
                   </LinkContainer>
-                  <LinkContainer to='/admin/productlist'>
+                  <LinkContainer to='/admin/sessionlist'>
                     <NavDropdown.Item>Sessions</NavDropdown.Item>
                   </LinkContainer>
-                  <LinkContainer to='/admin/orderlist'>
+                  <LinkContainer to='/admin/musiclist'>
                     <NavDropdown.Item>Musics</NavDropdown.Item>
                   </LinkContainer>
                 </NavDropdown>

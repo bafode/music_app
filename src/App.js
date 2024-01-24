@@ -9,6 +9,8 @@ import RegisterScreen from './screens/RegisterScreen'
 import UserListScreen from './screens/UserListScreen'
 import UserEditScreen from './screens/UserEditScreen'
 import ProfileScreen from './screens/ProfileScreen'
+import CreateSessionScreen from './screens/CreateSessionScreen'
+import SessionListScreen from './screens/SessionListScreen'
 
 const App = () => {
   return (
@@ -23,6 +25,8 @@ const App = () => {
           <Route path='/admin/user/:id/edit' component={UserEditScreen} />
           <Route path='/search/:keyword' component={HomeScreen} exact />
           <Route path='/page/:pageNumber' component={HomeScreen} exact />
+          <Route path='/createSession' component={CreateSessionScreen} exact />
+          <Route path='/admin/sessionlist' component={SessionListScreen} />
           <Route
             path='/search/:keyword/page/:pageNumber'
             component={HomeScreen}

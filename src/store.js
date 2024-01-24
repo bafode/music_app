@@ -11,6 +11,7 @@ import {
   userDeleteReducer,
   userUpdateReducer,
 } from './reducers/userReducers'
+import { addMusicToSessionReducer, sessionCreateReducer, sessionDeleteReducer, sessionDetailsReducer, sessionListReducer, sessionUpdateReducer } from './reducers/sessionReducers'
 
 
 const reducer = combineReducers({
@@ -21,6 +22,12 @@ const reducer = combineReducers({
   userList: userListReducer,
   userDelete: userDeleteReducer,
   userUpdate: userUpdateReducer,
+  sessionList:sessionListReducer,
+  sessionDetails:sessionDetailsReducer,
+  sessionDelete:sessionDeleteReducer,
+  sessionCreate:sessionCreateReducer,
+  sessionUpdate:sessionUpdateReducer,
+  addMusicToSession:addMusicToSessionReducer,
 })
 
 
