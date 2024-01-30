@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  client:
+    container_name: react-prod
+    image: prod
+    build: 
+      context: .
+      dockerfile: Dockerfile
+      target: prod
+    ports:
+      - 8080:80
+    volumes:
+      - ./build:/usr/share/nginx/html
+      - ./node_modules:/node_modules/

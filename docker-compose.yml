@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  react-app:
+    container_name: reactjs
+    image: react
+    build: 
+      context: .
+      dockerfile: Dockerfile
+      target: dev
+    volumes:
+      - ./:/usr/share/nginx/html
+      - ./node_modules:/node_modules/
+    ports:
+      - 3000:3000
