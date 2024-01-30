@@ -21,8 +21,6 @@ export const listSessions = () => async (
     const { data } = await axios.get(
       `/sessions`,config
     )
-
-    console.log(data)
     dispatch({
       type: SESSION_LIST_SUCCESS,
       payload: data,
@@ -38,11 +36,21 @@ export const listSessions = () => async (
   }
 }
 
-export const listSessionDetails = (id) => async (dispatch) => {
+export const listSessionDetails = (id) => async (dispatch,getState) => {
   try {
     dispatch({ type: SESSION_DETAILS_REQUEST })
 
-    const { data } = await axios.get(`/sessions/${id}`)
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    const { data } = await axios.get(`/sessions/${id}`,config)
 
     dispatch({
       type: SESSION_DETAILS_SUCCESS,
@@ -133,7 +141,7 @@ export const createSession = (moduleName,expirationDate) => async (dispatch, get
   }
 }
 
-export const addMusicToSession = (sessionId, music) => async (
+export const addMusicToSessionAction = (sessionId, musicId) => async (
   dispatch,
   getState
 ) => {
@@ -153,7 +161,7 @@ export const addMusicToSession = (sessionId, music) => async (
       },
     }
 
-    await axios.put(`/sessions/${sessionId}/reviews`, music, config)
+    await axios.put(`/sessions/${sessionId}`,{musicId}, config)
 
     dispatch({
       type: SESSION_CREATE_MUSIC_SUCCESS,

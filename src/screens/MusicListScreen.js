@@ -28,36 +28,20 @@ const MusicListScreen = ({ history, match }) => {
     success: successDelete,
   } = musicDelete
 
-  const musicCreate = useSelector((state) => state.musicCreate)
-  const {
-    loading: loadingCreate,
-    error: errorCreate,
-    success: successCreate,
-    music: createdMusic,
-  } = musicCreate
-
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
 
   useEffect(() => {
-    dispatch({ type: MUSIC_CREATE_RESET })
 
     if (!userInfo || !userInfo.isAdmin) {
       history.push('/login')
     }
-
-    if (successCreate) {
-      history.push(`/admin/music/${createdMusic._id}/edit`)
-    } else {
-      dispatch(listMusics('', pageNumber))
-    }
+    dispatch(listMusics('','', pageNumber))
   }, [
     dispatch,
     history,
     userInfo,
     successDelete,
-    successCreate,
-    createdMusic,
     pageNumber,
   ])
 
@@ -67,26 +51,10 @@ const MusicListScreen = ({ history, match }) => {
     }
   }
 
-  const createMusicHandler = () => {
-    dispatch(createMusic())
-  }
-
   return (
     <>
-      <Row className='align-items-center'>
-        <Col>
-          <h1>Musics</h1>
-        </Col>
-        <Col className='text-right'>
-          <Button className='my-3' onClick={createMusicHandler}>
-            <i className='fas fa-plus'></i> Create Music
-          </Button>
-        </Col>
-      </Row>
       {loadingDelete && <Loader />}
       {errorDelete && <Message variant='danger'>{errorDelete}</Message>}
-      {loadingCreate && <Loader />}
-      {errorCreate && <Message variant='danger'>{errorCreate}</Message>}
       {loading ? (
         <Loader />
       ) : error ? (
@@ -111,7 +79,7 @@ const MusicListScreen = ({ history, match }) => {
                   <td>{music.link}</td>
                   <td>{music.artist.map((a)=>(<div>{a}</div>))}</td>
                   <td>
-                    <LinkContainer to={`/admin/music/${music._id}/edit`}>
+                    <LinkContainer to={`/musics/${music._id}`}>
                       <Button variant='light' className='btn-sm'>
                         <i className='fas fa-edit'></i>
                       </Button>

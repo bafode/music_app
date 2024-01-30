@@ -12,7 +12,7 @@ import {
   userUpdateReducer,
 } from './reducers/userReducers'
 import { addMusicToSessionReducer, sessionCreateReducer, sessionDeleteReducer, sessionDetailsReducer, sessionListReducer, sessionUpdateReducer } from './reducers/sessionReducers'
-import { musicCreateReducer, musicDeleteReducer, musicDetailsReducer, musicListReducer, musicTopRatedReducer, musicUpdateReducer, musicVoteCreateReducer } from './reducers/musicReducers'
+import { musicCreateReducer, musicDeleteReducer, musicDetailsReducer, musicListReducer, musicSearchReducer, musicTopRatedReducer, musicUpdateReducer, musicVoteCreateReducer } from './reducers/musicReducers'
 
 
 const reducer = combineReducers({
@@ -30,11 +30,12 @@ const reducer = combineReducers({
   sessionUpdate:sessionUpdateReducer,
   addMusicToSession:addMusicToSessionReducer,
   musicList: musicListReducer,
+  musicSearch: musicSearchReducer,
   musicDetails: musicDetailsReducer,
   musicDelete: musicDeleteReducer,
   musicCreate: musicCreateReducer,
   musicUpdate: musicUpdateReducer,
-  musicReviewCreate: musicVoteCreateReducer,
+  musicVoteCreate: musicVoteCreateReducer,
   musicTopRated: musicTopRatedReducer,
 })
 

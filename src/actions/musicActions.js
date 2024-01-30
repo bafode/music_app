@@ -1,16 +1,16 @@
 import axios from 'axios'
 
 import { logout } from './userActions'
-import { MUSIC_CREATE_FAIL, MUSIC_CREATE_REQUEST, MUSIC_CREATE_SUCCESS, MUSIC_CREATE_VOTE_FAIL, MUSIC_CREATE_VOTE_REQUEST, MUSIC_CREATE_VOTE_SUCCESS, MUSIC_DELETE_FAIL, MUSIC_DELETE_REQUEST, MUSIC_DELETE_SUCCESS, MUSIC_DETAILS_FAIL, MUSIC_DETAILS_REQUEST, MUSIC_DETAILS_SUCCESS, MUSIC_LIST_FAIL, MUSIC_LIST_REQUEST, MUSIC_LIST_SUCCESS, MUSIC_TOP_FAIL, MUSIC_TOP_REQUEST, MUSIC_TOP_SUCCESS, MUSIC_UPDATE_FAIL, MUSIC_UPDATE_REQUEST, MUSIC_UPDATE_SUCCESS } from '../constants/musicConstants'
+import { MUSIC_CREATE_FAIL, MUSIC_CREATE_REQUEST, MUSIC_CREATE_SUCCESS, MUSIC_CREATE_VOTE_FAIL, MUSIC_CREATE_VOTE_REQUEST, MUSIC_CREATE_VOTE_SUCCESS, MUSIC_DELETE_FAIL, MUSIC_DELETE_REQUEST, MUSIC_DELETE_SUCCESS, MUSIC_DETAILS_FAIL, MUSIC_DETAILS_REQUEST, MUSIC_DETAILS_SUCCESS, MUSIC_LIST_FAIL, MUSIC_LIST_REQUEST, MUSIC_LIST_SUCCESS, MUSIC_SEARCH_FAIL, MUSIC_SEARCH_REQUEST, MUSIC_SEARCH_SUCCESS, MUSIC_TOP_FAIL, MUSIC_TOP_REQUEST, MUSIC_TOP_SUCCESS, MUSIC_UPDATE_FAIL, MUSIC_UPDATE_REQUEST, MUSIC_UPDATE_SUCCESS } from '../constants/musicConstants'
 
-export const listMusics = (keyword = '', pageNumber = '') => async (
+export const listMusics = (search = '', session='All', pageNumber = '') => async (
   dispatch
 ) => {
   try {
     dispatch({ type: MUSIC_LIST_REQUEST })
 
     const { data } = await axios.get(
-      `/musics?keyword=${keyword}&pageNumber=${pageNumber}`
+      `/musics?search=${search}&session=${session}&pageNumber=${pageNumber}`
     )
 
     console.log(data)
@@ -29,11 +29,21 @@ export const listMusics = (keyword = '', pageNumber = '') => async (
   }
 }
 
-export const listMusicDetails = (id) => async (dispatch) => {
+export const listMusicDetails = (id) => async (dispatch,getState) => {
   try {
     dispatch({ type: MUSIC_DETAILS_REQUEST })
+    const {
+      userLogin: { userInfo },
+    } = getState()
 
-    const { data } = await axios.get(`/musics/${id}`)
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+
+    const { data } = await axios.get(`/musics/${id}`,config)
 
     dispatch({
       type: MUSIC_DETAILS_SUCCESS,
@@ -86,7 +96,7 @@ export const deleteMusic = (id) => async (dispatch, getState) => {
   }
 }
 
-export const createMusic = () => async (dispatch, getState) => {
+export const createMusic = (title,link,artist) => async (dispatch, getState) => {
   try {
     dispatch({
       type: MUSIC_CREATE_REQUEST,
@@ -102,13 +112,14 @@ export const createMusic = () => async (dispatch, getState) => {
       },
     }
 
-    const { data } = await axios.post(`/musics`, {}, config)
+    const { data } = await axios.post(`/musics`, {title,link,artist}, config)
 
     dispatch({
       type: MUSIC_CREATE_SUCCESS,
       payload: data,
     })
   } catch (error) {
+    console.log(error.response)
     const message =
       error.response && error.response.data.message
         ? error.response.data.message
@@ -219,6 +230,30 @@ export const listTopMusics = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: MUSIC_TOP_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    })
+  }
+}
+
+export const listMusicsFromSpotify = (search = '') => async (
+  dispatch
+) => {
+  try {
+    dispatch({ type: MUSIC_SEARCH_REQUEST })
+
+    const { data } = await axios.get(
+      `/spotify?search=${search}`
+    )
+    dispatch({
+      type: MUSIC_SEARCH_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    dispatch({
+      type: MUSIC_SEARCH_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
