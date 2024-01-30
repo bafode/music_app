@@ -13,7 +13,7 @@ const SessionListScreen = ({ history, match }) => {
   const dispatch = useDispatch()
 
   const sessionList = useSelector((state) => state.sessionList)
-  const { loading, error, sessions, page, pages } = sessionList
+  const { loading, error, sessions } = sessionList
 
   const sessionDelete = useSelector((state) => state.sessionDelete)
   const {
@@ -87,6 +87,11 @@ const SessionListScreen = ({ history, match }) => {
                 <td>{session.moduleName}</td>
                 <td>{session.expirationDate}</td>
                 <td>
+                   <LinkContainer to={`/session/${session._id}/edit`}>
+                      <Button variant='light' className='btn-sm'>
+                        <i className='fas fa-edit'></i>
+                      </Button>
+                  </LinkContainer>
                   <Button
                     variant='danger'
                     className='btn-sm'
