@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux'
-import { Form, Button,Dropdown } from 'react-bootstrap'
+import { Form, Button} from 'react-bootstrap'
 import { listSessions } from "../actions/sessionActions";
 import { listMusics } from "../actions/musicActions";
 

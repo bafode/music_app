@@ -30,7 +30,7 @@ const HomeScreen = ({ match,history }) => {
     } else {
       history.push('/login')
     }
-  },[dispatch,keyword,pageNumber,userInfo])
+  },[dispatch,keyword,pageNumber,userInfo,history])
 
 
   return (

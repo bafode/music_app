@@ -1,17 +1,13 @@
 import React, { useEffect } from 'react'
 import { LinkContainer } from 'react-router-bootstrap'
-import { Table, Button, Row, Col } from 'react-bootstrap'
+import { Table, Button} from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-//import Paginate from '../components/Paginate'
 import {
   listMusics,
   deleteMusic,
-  createMusic,
-  listTopMusics
 } from '../actions/musicActions'
-import {MUSIC_CREATE_RESET } from '../constants/musicConstants'
 
 const MusicListScreen = ({ history, match }) => {
   const pageNumber = match.params.pageNumber || 1
@@ -19,7 +15,7 @@ const MusicListScreen = ({ history, match }) => {
   const dispatch = useDispatch()
 
   const musicList = useSelector((state) => state.musicList)
-  const { loading, error, musics, page, pages } = musicList
+  const { loading, error, musics} = musicList
 
   const musicDelete = useSelector((state) => state.musicDelete)
   const {

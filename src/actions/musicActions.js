@@ -10,7 +10,7 @@ export const listMusics = (search = '', session='All', pageNumber = '') => async
     dispatch({ type: MUSIC_LIST_REQUEST })
 
     const { data } = await axios.get(
-      `/musics?search=${search}&session=${session}&pageNumber=${pageNumber}`
+      `http://127.0.0.1:5000/musics?search=${search}&session=${session}&pageNumber=${pageNumber}`
     )
 
     console.log(data)
@@ -43,7 +43,7 @@ export const listMusicDetails = (id) => async (dispatch,getState) => {
     }
 
 
-    const { data } = await axios.get(`/musics/${id}`,config)
+    const { data } = await axios.get(`http://127.0.0.1:5000/musics/${id}`,config)
 
     dispatch({
       type: MUSIC_DETAILS_SUCCESS,
@@ -76,7 +76,7 @@ export const deleteMusic = (id) => async (dispatch, getState) => {
       },
     }
 
-    await axios.delete(`/musics/${id}`, config)
+    await axios.delete(`http://127.0.0.1:5000/musics/${id}`, config)
 
     dispatch({
       type: MUSIC_DELETE_SUCCESS,
@@ -112,7 +112,7 @@ export const createMusic = (title,link,artist) => async (dispatch, getState) => 
       },
     }
 
-    const { data } = await axios.post(`/musics`, {title,link,artist}, config)
+    const { data } = await axios.post(`http://127.0.0.1:5000/musics`, {title,link,artist}, config)
 
     dispatch({
       type: MUSIC_CREATE_SUCCESS,
@@ -152,7 +152,7 @@ export const updateMusic = (music) => async (dispatch, getState) => {
     }
 
     const { data } = await axios.put(
-      `/musics/${music._id}`,
+      `http://127.0.0.1:5000/musics/${music._id}`,
       music,
       config
     )
@@ -197,7 +197,7 @@ export const createMusicVote = (musicId, vote) => async (
       },
     }
 
-    await axios.post(`/musics/${musicId}/votes`, vote, config)
+    await axios.post(`http://127.0.0.1:5000/musics/${musicId}/votes`, vote, config)
 
     dispatch({
       type: MUSIC_CREATE_VOTE_SUCCESS,
@@ -221,7 +221,7 @@ export const listTopMusics = () => async (dispatch) => {
   try {
     dispatch({ type: MUSIC_TOP_REQUEST })
 
-    const { data } = await axios.get(`/musics/top`)
+    const { data } = await axios.get(`http://127.0.0.1:5000/musics/top`)
     console.log(data)
     dispatch({
       type: MUSIC_TOP_SUCCESS,
@@ -245,7 +245,7 @@ export const listMusicsFromSpotify = (search = '') => async (
     dispatch({ type: MUSIC_SEARCH_REQUEST })
 
     const { data } = await axios.get(
-      `/spotify?search=${search}`
+      `http://127.0.0.1:5000/spotify?search=${search}`
     )
     dispatch({
       type: MUSIC_SEARCH_SUCCESS,

@@ -18,9 +18,8 @@ export const listSessions = () => async (
         },
       }
 
-    const { data } = await axios.get(
-      `/sessions`,config
-    )
+      const { data } = await axios.get(`http://127.0.0.1:5000/sessions`, config)
+
     dispatch({
       type: SESSION_LIST_SUCCESS,
       payload: data,
@@ -50,7 +49,7 @@ export const listSessionDetails = (id) => async (dispatch,getState) => {
       },
     }
 
-    const { data } = await axios.get(`/sessions/${id}`,config)
+    const { data } = await axios.get(`http://127.0.0.1:5000/sessions/${id}`,config)
 
     dispatch({
       type: SESSION_DETAILS_SUCCESS,
@@ -83,7 +82,7 @@ export const deleteSession = (id) => async (dispatch, getState) => {
       },
     }
 
-    await axios.delete(`/sessions/${id}`, config)
+    await axios.delete(`http://127.0.0.1:5000/sessions/${id}`, config)
 
     dispatch({
       type: SESSION_DELETE_SUCCESS,
@@ -119,7 +118,7 @@ export const createSession = (moduleName,expirationDate) => async (dispatch, get
       },
     }
 
-    const { data } = await axios.post(`/sessions`, {moduleName,expirationDate}, config)
+    const { data } = await axios.post(`http://127.0.0.1:5000/sessions`, {moduleName,expirationDate}, config)
 
     dispatch({
       type: SESSION_CREATE_SUCCESS,
@@ -161,7 +160,7 @@ export const addMusicToSessionAction = (sessionId, musicId) => async (
       },
     }
 
-    await axios.put(`/sessions/${sessionId}`,{musicId}, config)
+    await axios.put(`http://127.0.0.1:5000/sessions/${sessionId}`,{musicId}, config)
 
     dispatch({
       type: SESSION_CREATE_MUSIC_SUCCESS,
