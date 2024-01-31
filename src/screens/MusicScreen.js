@@ -12,7 +12,7 @@ import {
 } from '../actions/musicActions'
 import { MUSIC_CREATE_VOTE_RESET } from '../constants/musicConstants'
 
-const MusicScreen = ({ match,history }) => {
+const MusicScreen = ({ match }) => {
   const [rating, setRating] = useState(0)
   const [comment, setComment] = useState('')
 
