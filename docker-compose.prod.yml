@@ -9,6 +9,4 @@ services:
       target: prod
     ports:
       - 8080:80
-    volumes:
-      - ./build:/usr/share/nginx/html
-      - ./node_modules:/node_modules/
+   
